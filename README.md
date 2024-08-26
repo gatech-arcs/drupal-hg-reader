@@ -1,16 +1,18 @@
-Welcome to version 3.x of the Drupal 9 edition of Mercury Reader. Please report issues in GitHub.
+# Sciences php8.3 update of Hg Reader
 
-INSTALLATION
+Welcome to version 5.x of the Drupal 10+ edition of Mercury Reader. Please report issues in GitHub.
+
+## Installation
 
 If you used the gt_installer you will already have the module and it will already be enabled.
 
-CONFIGURATION
+## Configuration
 
 Extreme caveat: hg_reader looks for a text format named basic_html and uses that as its default. If you don't have such a format, it will use plain text, which is not good unless you like to see your pages decorated with HTML tags. Before you make any importers, go to admin/config/hg-reader/settings and select a text format. A future version of the module will create -- if the user approves -- a default text format upon installation.
 
 The other fields on the configuration page are mostly useful for development. You can stick with the defaults.
 
-USAGE
+## Usage
 
 Once the reader is installed and configured, you'll need to make an IMPORTER. For folks that have used the Feeds module, hg_reader works a lot like that, except there's no field assignments required -- it's all in the module. For folks that think Feeds is something you give to cows, here's how hg_reader works:
 
@@ -23,14 +25,10 @@ Content types for each Mercury type are provided by default, and can be modified
 
 Everything in hg_reader is node-based, so all node-based facilities pertain. You can integrate with Pathauto, Rules, whatever. Go nuts.
 
-THEMING
+## Theming
 
 Since the output of this module is all nodes and pages and blocks, theming boils down to what you'd be doing if you weren't using hg_reader, so no biggie. Note that the module includes a stylesheet. It's a bare-bones stylesheet, aimed solely at preventing a trainwreck. It works best with the GT theme.
 
-BUGS
+## Bugs
 
-Should you encounter a bug, go to https://github.gatech.edu/ICWebTeam/hg_reader/issues and give us the details.
-
-CODA
-
-Kudos may be expressed in the form of beer. Criticism may be expressed in the form of silent meditation.
+Should you encounter a bug, go to issues and give us the details.

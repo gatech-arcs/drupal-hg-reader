@@ -1,6 +1,6 @@
 {
     "name": "gtsciences/hg_reader",
-    "description": "Provides the hg_reader for Georgia Tech's Mercury serialization",
+    "description": "Provides the hg_reader for Georgia Tech's Mercury syndication service",
     "type": "drupal-custom-module",
     "require": {
       "drupal/twig_field_value": "^2.0",
