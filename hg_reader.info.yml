@@ -12,13 +12,12 @@ dependencies:
   - drupal:datetime_range
   - drupal:field
   - drupal:field_group
-  - drupal:twig_field_value
-  - drupal:taxonomy
-  - drupal:telephone
-  - drupal:twig_tweak
-  - drupal:video_embed_field
   - drupal:media
   - drupal:media_library
+  - drupal:taxonomy
+  - drupal:telephone
+  - drupal:twig_field_value
+  - drupal:twig_tweak
 datestamp: 1689012875
 libraries:
    - 'hg_reader/global-styling'
