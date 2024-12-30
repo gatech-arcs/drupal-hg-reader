@@ -213,7 +213,6 @@
       {% endif %}
 
       {% if (node.field_hg_media | length) > 0 %}
-        <h2>Videos</h2>
         {% for video in node.field_hg_media %}
           {# {% if loop.index > 1 %} #}
             {% if video.entity.field_media_hg_video is not empty %}

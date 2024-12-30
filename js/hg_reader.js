@@ -1,12 +1,6 @@
 (function ($, Drupal) {
   Drupal.behaviors.hg_reader = {
     attach: function (context, settings) {
-      if ($('.hg-reader-admin-settings').length == 0) {
-        $.ajax({
-          url: '/hg-reader/log/' + settings.hg_reader.nid
-        });
-      }
-
       if ($('#edit-hg-group').length > 0) {
         $.Fastselect.defaults.placeholder = 'Choose a group or groups';
         $('#edit-hg-group').fastselect();

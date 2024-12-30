@@ -45,37 +45,6 @@ function hg_reader_uninstall() {
 }
 
 /**
- * hg_reader_schema
- *
- * @return array
- */
-function hg_reader_schema() {
-  $schema['hg_reader_log'] = [
-    'description' => 'Stores log entries for Mercury Reader-created nodes.',
-    'fields' => [
-      'nid' => [
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0,
-        'description' => "Mercury node nid",
-      ],
-      'timestamp' => [
-        'description' => 'The Unix timestamp when the node was viewed.',
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0,
-      ],
-    ],
-    'primary key' => [
-      'nid',
-      'timestamp'
-    ],
-  ];
-
-  return $schema;
-}
-
-/**
  * hg_reader_requirements
  *
  * @param string $phase
@@ -833,3 +802,14 @@ function hg_reader_update_8015() {
   $config_storage->write('core.entity_view_display.node.hg_news.default', $source->read('core.entity_view_display.node.hg_news.default'));
   $config_storage->write('core.entity_form_display.node.hg_video.default', $source->read('core.entity_form_display.node.hg_video.default'));
 }
+
+/**
+ * Drop the logging table. Mediacurrent didn't implement the other end and it never seemed
+ * important enough to fix. When we finally did, we couldn't remember what it was for.
+ *
+ */
+function hg_reader_update_8016() {
+  $schema = Database::getConnection()->schema();
+  $schema->dropTable('hg_reader_log');
+}
+

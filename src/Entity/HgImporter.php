@@ -1077,7 +1077,7 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
           } else {
             // Ternary Operator that handles both youtube url instances
             $url_array = strpos($item['video_url'],'youtu.be') ? explode('youtu.be', $item['video_url']) : explode('youtube.com/watch?v=', $item['video_url']);
-            $new_url = 'https://youtu.be/' . end($url_array);
+            $new_url = 'https://youtu.be/' . trim(end($url_array), "/");
             // Create a new video media entity
             $media_entity = Media::create([
               'bundle' => 'hg_video',
@@ -1170,7 +1170,7 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
       if (empty($video['youtube_id'])) {
         continue;
       } else {
-        $video_list[] = 'http://youtu.be/' . $video['youtube_id'];
+        $video_list[] = 'http://youtu.be/' . trim($video['youtube_id'], "/");
       }
     }
     return $video_list;
@@ -1217,8 +1217,13 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
     foreach ($rawterms as $rawterm) {
       if (empty($rawterm)) { continue; }
       if (is_array($rawterm)) {
-        if (!isset($rawterm['term'], $rawterm[$vid])) { continue; }
-        $rawterm = $rawterm[$vid] ?: $rawterm['term'];
+        if (isset($rawterm['term'], $rawterm['tid'])) {
+          $rawterm = $rawterm['term'];
+        } elseif (!isset($rawterm['term'], $rawterm[$vid])) { 
+          continue; 
+        } else {
+          $rawterm = $rawterm[$vid] ?: $rawterm['term'];
+        }
       }
       $terms = \Drupal::entityTypeManager()->getStorage("taxonomy_term")->loadByProperties(["name" => $rawterm, "vid" => $vid]);
       if ($terms == NULL) {

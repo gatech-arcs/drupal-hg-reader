@@ -14,14 +14,6 @@ hg_reader.admin_settings:
   requirements:
     _permission: 'access administration pages'
 
-hg_reader.log:
-  path: '/hg-reader/log/{node}'
-  defaults:
-    _controller: '\Drupal\hg_reader\Controller\HgImporterController::log'
-    _title: 'Mercury Reader logger'
-  requirements:
-    _permission: 'access content'
-
 ############
 
 entity.hg_reader_importer:

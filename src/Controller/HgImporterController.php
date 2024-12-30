@@ -202,27 +202,4 @@ class HgImporterController extends ControllerBase {
       ));
     }
   }
-
-  /**
-   * Log everything of course.
-   * @param  Node $node   Take a guess.
-   *
-   */
-  public function log(NodeInterface $node = NULL) {
-    if (!$node) { return new JsonResponse(); }
-    if ($node->hasField('field_hg_id')) { $nid = $node->get('field_hg_id')->getString(); }
-    else if ($node->hasField('field_hg_id')) { $nid = $node->get('field_hg_id')->getString(); }
-    else { return new JsonResponse(); }
-
-    $this->database
-      ->insert('hg_reader_log')
-      ->fields([
-        'nid' => $nid,
-        'timestamp' => time()
-      ])
-      ->execute();
-
-    // Send back a nonce.
-    return new JsonResponse();
-  }
 }

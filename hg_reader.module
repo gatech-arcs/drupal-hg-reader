@@ -6,7 +6,7 @@
  * @author Office of Communications and Marketing <web@comm.gatech.edu>
  */
 
-define('READER_VERSION', '4.3.8');
+define('READER_VERSION', '4.4.1');
 define('HG_IMAGE_NOT_FOUND', 113741);
 
 use Drupal\hg_reader\Entity\HgImporter;
@@ -19,7 +19,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  * minus last run is greater than frequency for that importer.
  */
 function hg_reader_cron() {
-
   /**
    * PROCESS IMPORTERS
    */
@@ -34,52 +33,6 @@ function hg_reader_cron() {
     $frequency = $importer->get('frequency')->first()->getValue()['value'];
     if ((time() - $last_run) > $frequency) {
       $controller->process_importer($importer);
-    }
-  }
-
-  /**
-   * DELIVER REPORT BACK TO MERCURY
-   */
-  $container = \Drupal::getContainer();
-  $database = $container->get('database');
-
-  // Store a timestamp to frame all our actions
-  $threshhold = time();
-
-  // Get all records up to timestamp
-  $query = $database
-    ->select('hg_reader_log', 'l')
-    ->fields('l', ['nid'])
-    ->groupBy('nid')
-    ->condition('timestamp', $threshhold, '<');
-  $query->addExpression('COUNT(nid)', 'count');
-  $entries = $query->execute()
-    ->fetchAll();
-
-  // Generate a report
-  $reports = [];
-  foreach ($entries as $entry) { $reports[] = $entry->nid . '|' . $entry->count; }
-
-  if (!empty($reports)) {
-    // Aggregate the report
-    $report = implode('|', $reports);
-
-    // Send the report
-    $config = \Drupal::config('hg_reader.settings');
-    $hg_url = $config->get('hg_url');
-    $url = $hg_url . '/reader/report/' . $report;
-    $ch = HgImporter::curl_setup($url, FALSE);
-    curl_exec($ch);
-    $error = curl_error($ch);
-    if (!empty($error)) {
-      \Drupal::logger('hg_reader')->error(t('Mercury Reader log delivery failed: @error', array('@error' => $error)));
-    } else {
-      // Trim the database
-      $database
-        ->delete('hg_reader_log')
-        ->condition('timestamp', $threshhold, '<')
-        ->execute();
-      \Drupal::logger('hg_reader')->notice(t('Mercury Reader log sent.'));
     }
   }
 }
