@@ -4,8 +4,8 @@
     "type": "drupal-custom-module",
     "require": {
       "drupal/twig_field_value": "^2.0",
-      "drupal/twig_tweak": "^3.4"
-      "drupal/pathauto": "^1.13"
+      "drupal/twig_tweak": "^3.4",
+      "drupal/pathauto": "^1.13",
       "drupal/metatag": "^2.1"
     },
     "suggest": {
