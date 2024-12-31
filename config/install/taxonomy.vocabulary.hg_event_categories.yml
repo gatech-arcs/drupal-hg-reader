@@ -4,7 +4,7 @@ dependencies:
   enforced:
     module:
       - hg_reader
-name: 'Event categories'
+name: 'Hg - Event categories'
 vid: hg_event_categories
 description: 'Event categories from Mercury'
 hierarchy: 0

@@ -4,7 +4,7 @@ dependencies:
   enforced:
     module:
       - hg_reader
-name: Categories
+name: 'Hg - News categories'
 vid: hg_categories
 description: 'News categories from Mercury'
 hierarchy: 0
