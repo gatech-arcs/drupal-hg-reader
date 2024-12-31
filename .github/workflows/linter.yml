@@ -1,9 +1,7 @@
 ---
 name: Lint Code Base
 
-on: # yamllint disable-line rule:truthy
-  push: null
-  pull_request: null
+on: [push, pull_request]
 
 permissions: {}
 
@@ -15,7 +13,6 @@ jobs:
     permissions:
       contents: read
       packages: read
-      # To report GitHub Actions status checks
       statuses: write
 
     steps:
@@ -28,7 +25,11 @@ jobs:
         uses: super-linter/super-linter/slim@85f7611e0f7b53c8573cca84aa0ed4344f6f6a4d # v7.2.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VALIDATE_ALL_CODEBASE: false
-          VALIDATE_PHP_PSALM: false
+          VALIDATE_ALL_CODEBASE: true
           VALIDATE_JSCPD: false
+          VALIDATE_JSON: false
+          VALIDATE_JSON_PRETTIER: false
+          VALIDATE_PHP_PSALM: false
+          VALIDATE_PHP_PHPCS: false
+          # YAML is validated via eslint plugin for Drupal
           VALIDATE_YAML_PRETTIER: false
