@@ -1,4 +1,3 @@
-uuid: 752a7136-a569-415f-bd02-23dad4aa1312
 langcode: en
 status: true
 dependencies:
@@ -7,8 +6,6 @@ dependencies:
     - node.type.hg_profile
   module:
     - file
-_core:
-  default_config_hash: PmNGTxWtiEoamWWCGynjVbI_fvcjsRECKl42FpWJGoM
 id: node.hg_profile.field_hg_related_files
 field_name: field_hg_related_files
 entity_type: node

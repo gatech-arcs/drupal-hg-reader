@@ -1,4 +1,3 @@
-uuid: c45d0630-cc92-4452-ae13-3fba1adfdd47
 langcode: en
 status: true
 dependencies:
@@ -31,8 +30,6 @@ dependencies:
   module:
     - datetime_range
     - user
-_core:
-  default_config_hash: s8VmzALnH1tNFNOdZzFGKGEuv3G_0lAX9EdkE-TIbZs
 id: node.hg_event.teaser
 targetEntityType: node
 bundle: hg_event

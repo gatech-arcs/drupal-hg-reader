@@ -18,6 +18,5 @@ dependencies:
   - drupal:telephone
   - drupal:twig_field_value
   - drupal:twig_tweak
-datestamp: 1689012875
 libraries:
    - 'hg_reader/global-styling'

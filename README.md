@@ -1,6 +1,6 @@
 # Sciences php8.3 update of Hg Reader
 
-Welcome to version 5.x of the Drupal 10+ edition of Mercury Reader. Please report issues in GitHub.
+Welcome to version 5.x of the Drupal 10.3+ edition of Mercury Reader. Please report issues in GitHub.
 
 ## Installation
 

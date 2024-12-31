@@ -1,4 +1,3 @@
-uuid: 69508d4f-ede7-487b-ac9b-4bcfc191c586
 langcode: en
 status: true
 dependencies:
@@ -36,8 +35,6 @@ dependencies:
     - telephone
     - text
     - user
-_core:
-  default_config_hash: rX55awD5_V91myYBNgUk5SY9X7YOeJGtoQGCBeE0S7Y
 id: node.hg_event.default
 targetEntityType: node
 bundle: hg_event

@@ -1,4 +1,3 @@
-uuid: f4e889fb-3408-488e-a572-f47bc4bd0deb
 langcode: en
 status: true
 dependencies:
@@ -15,8 +14,6 @@ dependencies:
     - image
     - path
     - text
-_core:
-  default_config_hash: UqFbTAggsAPXtYWNa57CTAqFhtcx7N7xIGQMGfoGZUU
 id: node.hg_video.default
 targetEntityType: node
 bundle: hg_video
