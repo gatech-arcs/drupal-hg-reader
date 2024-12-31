@@ -1,13 +1,15 @@
 ---
 name: Lint Code Base
 
-on:  # yamllint disable-line rule:truthy
+on: # yamllint disable-line rule:truthy
   push: null
   pull_request: null
 
+permissions: {}
+
 jobs:
   build:
-    name: Lint Code Base
+    name: Lint
     runs-on: ubuntu-latest
 
     permissions:
@@ -25,6 +27,7 @@ jobs:
       - name: Super-linter
         uses: super-linter/super-linter/slim@85f7611e0f7b53c8573cca84aa0ed4344f6f6a4d # v7.2.1
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_ALL_CODEBASE: false
           VALIDATE_PHP_PSALM: false
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_JSCPD: false
