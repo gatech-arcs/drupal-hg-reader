@@ -6,7 +6,7 @@ dependencies:
 id: tech_news_path
 label: tech_news_path
 type: 'canonical_entities:node'
-pattern: '/hg/tech-in-the-news/[node:field_hg_dateline:date:html_year]/[node:field_hg_dateline:date:custom:m]/[node:field_hg_dateline:date:custom:d]/[node:title]'
+pattern: '/in-the-news/[node:field_hg_dateline:date:html_year]/[node:title]'
 selection_criteria:
   2d1b309e-4e0f-4f98-afcc-2a4add5b148c:
     id: 'entity_bundle:node'

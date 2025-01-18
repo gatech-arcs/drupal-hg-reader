@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title>Mercury Reader</title>
+  <short_name>hg_reader</short_name>
+  <dc:creator>Georgia Tech Communications &amp; Marketing</dc:creator>
+  <type>project_module</type>
+  <supported_branches>4.4.,5.0.</supported_branches>
+  <composer_namespace>gtsciences/hg_reader</composer_namespace>
+  <project_status>published</project_status>
+  <link>https://github.com/gatech-arcs/drupal-hg-reader</link>
+  <terms>
+    <term>
+      <name>Projects</name>
+      <value>Modules</value>
+    </term>
+    <term>
+      <name>Maintenance status</name>
+      <value>Actively maintained</value>
+    </term>
+    <term>
+      <name>Development status</name>
+      <value>Under active development</value>
+    </term>
+  </terms>
+  <releases>
+    <release>
+      <name>Mercury Reader</name>
+      <version>5.0.0</version>
+      <tag>4.4.1</tag>
+      <status>published</status>
+      <release_link>https://github.com/gatech-arcs/drupal-hg-reader/blob/5.x/history</release_link>
+      <download_link>https://github.com/gatech-arcs/drupal-hg-reader/tree/5.x</download_link>
+     <files>
+       <file>
+         <url>https://github.com/gatech-arcs/drupal-hg-reader/archive/refs/tags/5.0.0.tar.gz</url>
+         <archive_type>tar.gz</archive_type>
+         <md5>5116e4b92cf061148719cbfcb356ae21</md5>
+         <size>104682</size>
+         <filedate>1729883651</filedate>
+       </file>
+     </files>
+     <terms>
+       <term>
+         <name>Release type</name>
+         <value>Bug fix</value>
+       </term>
+     </terms>
+   </release>
+ </releases>
+</project>

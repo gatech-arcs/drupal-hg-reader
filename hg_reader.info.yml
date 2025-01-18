@@ -2,10 +2,10 @@ name: Mercury Reader
 description: Client-side integration for Mercury
 package: GT
 type: module
-core_version_requirement: ^10.3 || ^11
-version: "5.0.0"
+core_version_requirement: ^10.4 || ^11
+version: "5.0.1"
 project: 'hg_reader'
-project status url: https://comm.gatech.edu/release_histories/hg_reader/4.x
+#project status url: https://comm.gatech.edu/release_histories/hg_reader/4.x
 configure: hg_reader.settings
 dependencies:
   - drupal:datetime
