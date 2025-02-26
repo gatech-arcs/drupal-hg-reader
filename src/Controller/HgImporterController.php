@@ -138,7 +138,7 @@ class HgImporterController extends ControllerBase {
     // if (!$xml) { continue; }
 
     // get serialized, decoded array
-    $rawnodes = unserialize($hg_reader_importer->serialize_xml($xml));
+    $rawnodes = unserialize(data: $hg_reader_importer->serialize_xml($xml));
     $hg_reader_importer->decode($rawnodes);
 
     // create nodes
