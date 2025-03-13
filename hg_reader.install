@@ -1,6 +1,5 @@
 <?php
 
-use Drupal\Core\Database\Database;
 use Drupal\Core\Config\FileStorage;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Field\FieldStorageDefinitionInterface;
@@ -18,16 +17,6 @@ use Drupal\Core\Datetime\DateFormatInterface;
 use Drupal\Core\KeyValueStore\KeyValueStoreInterface;
 
 /**
- * hg_reader_install
- *
- * Set fresh_install flag to true.
- */
-function hg_reader_install() {
-  $config = \Drupal::service('config.factory')->getEditable('hg_reader.settings');
-  $config->set('fresh_install', TRUE)->save();
-}
-
-/**
  * hg_reader_uninstall
  *
  * Delete various hg_reader settings.
@@ -42,27 +31,6 @@ function hg_reader_uninstall() {
   $keys->delete('feeds_subscription.field_storage_definitions');
 
   drupal_flush_all_caches();
-}
-
-/**
- * hg_reader_requirements
- *
- * @param string $phase
- * @return array
- */
-function hg_reader_requirements($phase) {
-	$requirements = [];
-
-	// Checking `mercury_news` specifically becuase of hg_reader_update_8002
-	if ($phase == 'runtime' && \Drupal\node\Entity\NodeType::load('mercury_news') ) {
-		$requirements['hg_reader'] = [
-			'title' => t('Mercury Reader'),
-			'severity' => REQUIREMENT_ERROR,
-			'description' => t("Mercury Reader has <a href='@url'>outdated content types</a>. Please re-install Mercury Reader to install the proper content types.", array('@url' => "https://github.gatech.edu/ICWebTeam/hg_reader/issues/21" ))
-		];
-	}
-
-	return $requirements;
 }
 
 /**

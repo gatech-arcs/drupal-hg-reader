@@ -11,6 +11,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Field\FieldItemList;
+use Drupal\Core\File\FileExists;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Messenger\MessengerTrait;
 use Drupal\datetime\Plugin\Field\FieldType\DateTimeItemInterface;
@@ -1115,7 +1116,7 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
       $file_data = file_get_contents($item['image_path']);
       $directory_uri = 'public://hg_media/' . date('Y-d');
       $file_system->prepareDirectory($directory_uri, FileSystemInterface::CREATE_DIRECTORY|FileSystemInterface::MODIFY_PERMISSIONS);
-      $file = $file_repository->writeData($file_data, $directory_uri . '/' . $item['image_name'], FileSystemInterface::EXISTS_REPLACE);
+      $file = $file_repository->writeData($file_data, $directory_uri . '/' . $item['image_name'], FileExists::Replace);
       return $file;
     }
   }
@@ -1141,7 +1142,7 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
         } else if (!isset($image['image_path']) || empty($image['image_path'])) {
           continue;
         } else if (!$data = @file_get_contents($image['image_path'])) { continue; }
-        $file = \Drupal::service('file.repository')->writeData($data, 'public://' . 'hg_media/' . $image['image_name'], FileSystemInterface::EXISTS_REPLACE);
+        $file = \Drupal::service('file.repository')->writeData($data, 'public://' . 'hg_media/' . $image['image_name'], FileExists::Replace);
         $image_list[$file->id()] = [
           'target_id' => $file->id(),
           'alt' => substr(strip_tags($image['body']), 0, 512),
@@ -1193,7 +1194,7 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
         if ($file['filepath'] == '') {
           continue;
         } else if (!$data = @file_get_contents($file['filepath'])) { continue; }
-        $raw = \Drupal::service('file.repository')->writeData($data, $local_path . '/' . $file['filename'], FileSystemInterface::EXISTS_REPLACE);
+        $raw = \Drupal::service('file.repository')->writeData($data, $local_path . '/' . $file['filename'], FileExists::Replace);
         $fid = $raw->get('fid')->first()->getValue()['value'];
         $file_list[] = ['target_id' => $fid];
       }
@@ -1219,8 +1220,8 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
       if (is_array($rawterm)) {
         if (isset($rawterm['term'], $rawterm['tid'])) {
           $rawterm = $rawterm['term'];
-        } elseif (!isset($rawterm['term'], $rawterm[$vid])) { 
-          continue; 
+        } elseif (!isset($rawterm['term'], $rawterm[$vid])) {
+          continue;
         } else {
           $rawterm = $rawterm[$vid] ?: $rawterm['term'];
         }
