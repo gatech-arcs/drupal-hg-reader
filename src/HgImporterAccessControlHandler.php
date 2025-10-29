@@ -48,4 +48,3 @@ class HgImporterAccessControlHandler extends EntityAccessControlHandler {
   }
 
 }
-?>
