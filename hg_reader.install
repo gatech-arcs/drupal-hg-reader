@@ -37,15 +37,60 @@ function hg_reader_uninstall() {
  * Helper function for config updates.
  *
  */
-function _hg_reader_update_config($configsNames) {
+function _hg_reader_update_config($configNames) {
   $config_path    = \Drupal::service('extension.path.resolver')->getPath('module', 'hg_reader') . '/config/install';
   $source         = new FileStorage($config_path);
   $config_storage = \Drupal::service('config.storage');
   $config_factory = \Drupal::configFactory();
-  $uuid_service = \Drupal::service('uuid');
+  $uuid_service   = \Drupal::service('uuid');
 
-  foreach ($configsNames as $name) {
+  foreach ($configNames as $name) {
     $config_storage->write($name, $source->read($name));
     $config_factory->getEditable($name)->set('uuid', $uuid_service->generate())->save();
   }
+}
+
+function _hg_reader_install_field($field_name, $configNames) {
+  $config_path    = \Drupal::service('extension.path.resolver')->getPath('module', 'hg_reader') . '/config/install';
+  $source         = new FileStorage($config_path);
+  $field_storage  = \Drupal::service('entity_type.manager')->getStorage('field_storage_config');
+  $config_storage = \Drupal::service('config.storage');
+  $config_factory = \Drupal::configFactory();
+  $uuid_service   = \Drupal::service('uuid');
+
+  // Create field storage.
+  if (empty($field_storage->load($field_name))) {
+    $field_storage->createFromStorageRecord($source->read('field.storage.' . $field_name))->save();
+  }
+
+  // Create field(s).
+  foreach ($configNames as $name) {
+    $config_storage->write($name, $source->read($name));
+    $config_factory->getEditable($name)->set('uuid', $uuid_service->generate())->save();
+  }
+}
+
+/**
+ * Add userdata field to event, news, ext_news.
+ *
+ */
+function hg_reader_update_11000() {
+  $field_name = 'node.field_hg_userdata';
+  $field_names = [
+    'field.field.node.hg_event.field_hg_userdata',
+    'field.field.node.hg_external_news.field_hg_userdata',
+    'field.field.node.hg_news.field_hg_userdata',
+  ];
+
+  $config_names = [
+    'core.entity_form_display.node.hg_event.default',
+    'core.entity_form_display.node.hg_external_news.default',
+    'core.entity_form_display.node.hg_news.default',
+    'core.entity_view_display.node.hg_event.default',
+    'core.entity_view_display.node.hg_external_news.default',
+    'core.entity_view_display.node.hg_news.default',
+  ];
+
+  _hg_reader_install_field($field_name, $field_names);
+  _hg_reader_update_config($config_names);
 }

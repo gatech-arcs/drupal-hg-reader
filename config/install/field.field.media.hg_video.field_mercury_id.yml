@@ -1,6 +1,9 @@
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - hg_reader
   config:
     - field.storage.media.field_mercury_id
     - media.type.hg_video

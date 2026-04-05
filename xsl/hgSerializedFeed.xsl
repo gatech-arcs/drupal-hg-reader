@@ -16,7 +16,7 @@
             <xsl:text>;</xsl:text>
 
             <xsl:if test="type = 'news'">
-                <xsl:text>a:31:{</xsl:text>
+                <xsl:text>a:32:{</xsl:text>
 
                 <xsl:call-template name="general_element">
                     <xsl:with-param name="element_name" select="string('nid')" />
@@ -132,6 +132,12 @@
                     <xsl:with-param name="element_value" select="image" />
                 </xsl:call-template>
 
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('userdata')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="userdata" />
+                </xsl:call-template>
+
                 <xsl:call-template name="related_links" />
 
                 <xsl:call-template name="boilerplate" />
@@ -160,7 +166,7 @@
             </xsl:if>
 
             <xsl:if test="type = 'event'">
-                <xsl:text>a:33:{</xsl:text>
+                <xsl:text>a:34:{</xsl:text>
 
                 <xsl:call-template name="general_element">
                     <xsl:with-param name="element_name" select="string('nid')" />
@@ -288,6 +294,12 @@
                     <xsl:with-param name="element_value" select="expire" />
                 </xsl:call-template>
 
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('userdata')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="userdata" />
+                </xsl:call-template>
+
                 <xsl:call-template name="related_links" />
 
                 <xsl:call-template name="event_extras" />
@@ -316,7 +328,7 @@
             </xsl:if>
 
             <xsl:if test="type = 'hgTechInTheNews'">
-                <xsl:text>a:17:{</xsl:text>
+                <xsl:text>a:18:{</xsl:text>
 
                 <xsl:call-template name="general_element">
                     <xsl:with-param name="element_name" select="string('nid')" />
@@ -382,6 +394,12 @@
                     <xsl:with-param name="element_name" select="string('changed')" />
                     <xsl:with-param name="element_format" select="string('base64')" />
                     <xsl:with-param name="element_value" select="changed" />
+                </xsl:call-template>
+
+                <xsl:call-template name="general_element">
+                    <xsl:with-param name="element_name" select="string('userdata')" />
+                    <xsl:with-param name="element_format" select="string('base64')" />
+                    <xsl:with-param name="element_value" select="userdata" />
                 </xsl:call-template>
 
                 <xsl:call-template name="hg_media" />

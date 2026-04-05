@@ -1,3 +1,4 @@
+uuid: eed12dbc-46c4-412d-93c6-e7292fc979a8
 langcode: en
 status: true
 dependencies:
@@ -25,6 +26,7 @@ dependencies:
     - field.field.node.hg_event.field_hg_source_updated
     - field.field.node.hg_event.field_hg_summary
     - field.field.node.hg_event.field_hg_summary_sentence
+    - field.field.node.hg_event.field_hg_userdata
     - image.style.thumbnail
     - node.type.hg_event
   module:
@@ -73,6 +75,7 @@ third_party_settings:
         - field_hg_related_links
         - field_hg_related_files
         - field_hg_sidebar
+        - field_hg_userdata
       label: Extras
       region: content
       parent_name: ''
@@ -111,6 +114,8 @@ third_party_settings:
         classes: ''
         id: ''
         effect: none
+_core:
+  default_config_hash: unsK6YCvc2XfCvp5dXa8v6Rboj0jnsH6zGIyl6IdbmU
 id: node.hg_event.default
 targetEntityType: node
 bundle: hg_event
@@ -301,6 +306,14 @@ content:
   field_hg_summary_sentence:
     type: string_textfield
     weight: 8
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_hg_userdata:
+    type: string_textfield
+    weight: 16
     region: content
     settings:
       size: 60

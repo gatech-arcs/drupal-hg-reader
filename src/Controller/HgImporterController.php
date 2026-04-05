@@ -35,7 +35,7 @@ class HgImporterController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public function __construct(MessengerInterface $messenger = NULL, Connection $database = NULL, $full_deleted_list = [], ) {
+  public function __construct(?MessengerInterface $messenger = NULL, ?Connection $database = NULL, $full_deleted_list = [], ) {
     if ($messenger) {
       $this->messenger = $messenger;
     }
@@ -131,14 +131,14 @@ class HgImporterController extends ControllerBase {
 
     // pull data for this importer
     $xml = $hg_reader_importer->pull_remote($fid);
-    #kpr($hg_reader_importer->serialize_xml($xml));
+    #devel_render($hg_reader_importer->serialize_xml($xml));
     #exit();
 
     // TODO: Error handling here. Ha ha ha.
     // if (!$xml) { continue; }
 
     // get serialized, decoded array
-    $rawnodes = unserialize(data: $hg_reader_importer->serialize_xml($xml));
+    $rawnodes = unserialize($hg_reader_importer->serialize_xml($xml));
     $hg_reader_importer->decode($rawnodes);
 
     // create nodes

@@ -10,7 +10,7 @@
 
 
   <xsl:if test="type = 'news'">
-    <xsl:text>a:24:{</xsl:text>
+    <xsl:text>a:25:{</xsl:text>
 
       <xsl:text>s:3:"nid";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
@@ -93,6 +93,18 @@
         <xsl:value-of select="string-length(changed)"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="changed"/>
+        <xsl:text>";</xsl:text>
+      <xsl:text>}</xsl:text>
+
+      <xsl:text>s:8:"userdata";</xsl:text>
+      <xsl:text>a:2:{</xsl:text>
+        <xsl:text>s:6:"format";</xsl:text>
+        <xsl:text>s:6:"string";</xsl:text>
+        <xsl:text>s:5:"value";</xsl:text>
+        <xsl:text>s:</xsl:text>
+        <xsl:value-of select="string-length(field_userdata/item/value)"/>
+        <xsl:text>:"</xsl:text>
+        <xsl:value-of select="field_userdata/item/value"/>
         <xsl:text>";</xsl:text>
       <xsl:text>}</xsl:text>
 
@@ -388,7 +400,7 @@
           <xsl:text>i:</xsl:text>
           <xsl:value-of select="(position() - 1)"/>
           <xsl:text>;</xsl:text>
-          <xsl:text>a:12:{</xsl:text>
+          <xsl:text>a:13:{</xsl:text>
 
             <xsl:text>s:3:"nid";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
@@ -438,15 +450,27 @@
               <xsl:text>";</xsl:text>
             <xsl:text>}</xsl:text>
 
+            <xsl:text>s:3:"alt";</xsl:text>
+            <xsl:text>a:2:{</xsl:text>
+              <xsl:text>s:6:"format";</xsl:text>
+              <xsl:text>s:6:"base64";</xsl:text>
+              <xsl:text>s:5:"value";</xsl:text>
+              <xsl:text>s:</xsl:text>
+              <xsl:value-of select="string-length(php:functionString('base64_encode',nid/node/field_image/item/image_alt))"/>
+              <xsl:text>:"</xsl:text>
+              <xsl:value-of select="php:functionString('base64_encode',nid/node/field_image/item/image_alt)"/>
+              <xsl:text>";</xsl:text>
+            <xsl:text>}</xsl:text>
+
             <xsl:text>s:10:"image_name";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:6:"base64";</xsl:text>
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
-              <xsl:value-of select="string-length(php:functionString('base64_encode',image_name))"/>
+              <xsl:value-of select="string-length(php:functionString('base64_encode',nid/node/field_image/item/filename))"/>
               <xsl:text>:"</xsl:text>
-              <xsl:value-of select="php:functionString('base64_encode',image_name)"/>
+              <xsl:value-of select="php:functionString('base64_encode',nid/node/field_image/item/filename)"/>
               <xsl:text>";</xsl:text>
             <xsl:text>}</xsl:text>
 
@@ -476,10 +500,8 @@
 
             <xsl:text>s:10:"video_name";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:6:"base64";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(php:functionString('base64_encode',nid/node/title))"/>
@@ -500,7 +522,7 @@
               <xsl:text>";</xsl:text>
             <xsl:text>}</xsl:text>
 
-            <xsl:text>s:9:"video_url";</xsl:text>
+            <xsl:text>s:10:"video_path";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:6:"string";</xsl:text>
@@ -695,141 +717,114 @@
 
 
   <xsl:if test="type = 'event'">
-    <xsl:text>a:26:{</xsl:text>
+    <xsl:text>a:27:{</xsl:text>
 
       <xsl:text>s:3:"nid";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:7:"numeric";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(@id)"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="@id"/>
         <xsl:text>";</xsl:text>
-
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:4:"type";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:6:"string";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(type)"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="type"/>
         <xsl:text>";</xsl:text>
-
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:5:"title";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:6:"base64";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(php:functionString('base64_encode',title))"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="php:functionString('base64_encode',title)"/>
         <xsl:text>";</xsl:text>
-
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:8:"location";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:6:"base64";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(php:functionString('base64_encode',field_location/item/value))"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="php:functionString('base64_encode',field_location/item/value)"/>
         <xsl:text>";</xsl:text>
-
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:13:"locationphone";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:6:"base64";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(php:functionString('base64_encode',field_phone/item/value))"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="php:functionString('base64_encode',field_phone/item/value)"/>
         <xsl:text>";</xsl:text>
-
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:13:"locationemail";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:6:"base64";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(php:functionString('base64_encode',field_email/item/email))"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="php:functionString('base64_encode',field_email/item/email)"/>
         <xsl:text>";</xsl:text>
-
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:11:"locationurl";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:6:"base64";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(php:functionString('base64_encode',field_url/item/url))"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="php:functionString('base64_encode',field_url/item/url)"/>
         <xsl:text>";</xsl:text>
-
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:16:"locationurltitle";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:6:"base64";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(php:functionString('base64_encode',field_url/item/title))"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="php:functionString('base64_encode',field_url/item/title)"/>
         <xsl:text>";</xsl:text>
-
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:3:"fee";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:6:"base64";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(php:functionString('base64_encode',field_fee/item/value))"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="php:functionString('base64_encode',field_fee/item/value)"/>
         <xsl:text>";</xsl:text>
-
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:6:"extras";</xsl:text>
@@ -841,24 +836,31 @@
           <xsl:value-of select="(position() - 1)"/>
           <xsl:text>;</xsl:text>
           <xsl:text>a:1:{</xsl:text>
-
             <xsl:text>s:9:"extratype";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:6:"string";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(value)"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="value"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
-
           <xsl:text>}</xsl:text>
         </xsl:for-each>
+      <xsl:text>}</xsl:text>
+
+      <xsl:text>s:8:"userdata";</xsl:text>
+      <xsl:text>a:2:{</xsl:text>
+        <xsl:text>s:6:"format";</xsl:text>
+        <xsl:text>s:6:"string";</xsl:text>
+        <xsl:text>s:5:"value";</xsl:text>
+        <xsl:text>s:</xsl:text>
+        <xsl:value-of select="string-length(field_userdata/item/value)"/>
+        <xsl:text>:"</xsl:text>
+        <xsl:value-of select="field_userdata/item/value"/>
+        <xsl:text>";</xsl:text>
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:19:"hg_invited_audience";</xsl:text>
@@ -870,22 +872,17 @@
           <xsl:value-of select="(position() - 1)"/>
           <xsl:text>;</xsl:text>
           <xsl:text>a:1:{</xsl:text>
-
             <xsl:text>s:8:"audience";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:6:"string";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(value)"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="value"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
-
           <xsl:text>}</xsl:text>
         </xsl:for-each>
       <xsl:text>}</xsl:text>
@@ -899,159 +896,128 @@
             <xsl:value-of select="(position() - 1)"/>
             <xsl:text>;</xsl:text>
             <xsl:text>a:4:{</xsl:text>
-
               <xsl:text>s:9:"startdate";</xsl:text>
               <xsl:text>a:2:{</xsl:text>
-
                 <xsl:text>s:6:"format";</xsl:text>
                 <xsl:text>s:6:"string";</xsl:text>
-
                 <xsl:text>s:5:"value";</xsl:text>
                 <xsl:text>s:</xsl:text>
                 <xsl:value-of select="string-length(value)"/>
                 <xsl:text>:"</xsl:text>
                 <xsl:value-of select="value"/>
                 <xsl:text>";</xsl:text>
-
               <xsl:text>}</xsl:text>
 
               <xsl:text>s:8:"daterule";</xsl:text>
               <xsl:text>a:2:{</xsl:text>
-
                 <xsl:text>s:6:"format";</xsl:text>
                 <xsl:text>s:6:"string";</xsl:text>
-
                 <xsl:text>s:5:"value";</xsl:text>
                 <xsl:text>s:</xsl:text>
                 <xsl:value-of select="string-length(rrule)"/>
                 <xsl:text>:"</xsl:text>
                 <xsl:value-of select="rrule"/>
                 <xsl:text>";</xsl:text>
-
               <xsl:text>}</xsl:text>
 
               <xsl:text>s:8:"timezone";</xsl:text>
               <xsl:text>a:2:{</xsl:text>
-
                 <xsl:text>s:6:"format";</xsl:text>
                 <xsl:text>s:6:"string";</xsl:text>
-
                 <xsl:text>s:5:"value";</xsl:text>
                 <xsl:text>s:</xsl:text>
                 <xsl:value-of select="string-length(timezone)"/>
                 <xsl:text>:"</xsl:text>
                 <xsl:value-of select="timezone"/>
                 <xsl:text>";</xsl:text>
-
               <xsl:text>}</xsl:text>
 
               <xsl:text>s:8:"stopdate";</xsl:text>
               <xsl:text>a:2:{</xsl:text>
-
                 <xsl:text>s:6:"format";</xsl:text>
                 <xsl:text>s:6:"string";</xsl:text>
-
                 <xsl:text>s:5:"value";</xsl:text>
                 <xsl:text>s:</xsl:text>
                 <xsl:value-of select="string-length(value2)"/>
                 <xsl:text>:"</xsl:text>
                 <xsl:value-of select="value2"/>
                 <xsl:text>";</xsl:text>
-
               <xsl:text>}</xsl:text>
 
-              <xsl:text>}</xsl:text>
+            <xsl:text>}</xsl:text>
         </xsl:for-each>
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:4:"body";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:6:"base64";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(php:functionString('base64_encode',body))"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="php:functionString('base64_encode',body)"/>
         <xsl:text>";</xsl:text>
-
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:7:"summary";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:6:"base64";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(php:functionString('base64_encode',field_summary/item/value))"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="php:functionString('base64_encode',field_summary/item/value)"/>
         <xsl:text>";</xsl:text>
-
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:8:"sentence";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:6:"base64";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(php:functionString('base64_encode',field_summary_sentence/item/value))"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="php:functionString('base64_encode',field_summary_sentence/item/value)"/>
         <xsl:text>";</xsl:text>
-
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:7:"contact";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:6:"base64";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(php:functionString('base64_encode',field_contact/item/value))"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="php:functionString('base64_encode',field_contact/item/value)"/>
         <xsl:text>";</xsl:text>
-
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:7:"created";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:6:"string";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(created)"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="created"/>
         <xsl:text>";</xsl:text>
-
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:7:"changed";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:6:"string";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(changed)"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="changed"/>
         <xsl:text>";</xsl:text>
-
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:4:"gids";</xsl:text>
@@ -1063,22 +1029,17 @@
           <xsl:value-of select="(position() - 1)"/>
           <xsl:text>;</xsl:text>
           <xsl:text>a:1:{</xsl:text>
-
             <xsl:text>s:3:"gid";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:6:"string";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(self::node())"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="self::node()"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
-
           <xsl:text>}</xsl:text>
         </xsl:for-each>
       <xsl:text>}</xsl:text>
@@ -1092,22 +1053,17 @@
           <xsl:value-of select="(position() - 1)"/>
           <xsl:text>;</xsl:text>
           <xsl:text>a:1:{</xsl:text>
-
             <xsl:text>s:4:"name";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:6:"base64";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(php:functionString('base64_encode',self::node()))"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="php:functionString('base64_encode',self::node())"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
-
           <xsl:text>}</xsl:text>
         </xsl:for-each>
       <xsl:text>}</xsl:text>
@@ -1121,35 +1077,28 @@
           <xsl:value-of select="(position() - 1)"/>
           <xsl:text>;</xsl:text>
           <xsl:text>a:2:{</xsl:text>
-
             <xsl:text>s:3:"tid";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:7:"numeric";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(tid)"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="tid"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
 
             <xsl:text>s:4:"term";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:6:"base64";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(php:functionString('base64_encode', value))"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="php:functionString('base64_encode', value)"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
 
           <xsl:text>}</xsl:text>
@@ -1165,35 +1114,28 @@
           <xsl:value-of select="(position() - 1)"/>
           <xsl:text>;</xsl:text>
           <xsl:text>a:2:{</xsl:text>
-
             <xsl:text>s:3:"tid";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:7:"numeric";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(tid)"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="tid"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
 
             <xsl:text>s:4:"term";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:6:"base64";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(php:functionString('base64_encode', value))"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="php:functionString('base64_encode', value)"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
 
           <xsl:text>}</xsl:text>
@@ -1371,92 +1313,74 @@
 
             <xsl:text>s:3:"fid";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:7:"numeric";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(fid)"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="fid"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
 
             <xsl:text>s:8:"filename";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:6:"string";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(filename)"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="filename"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
 
             <xsl:text>s:11:"description";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:6:"base64";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(php:functionString('base64_encode',description))"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="php:functionString('base64_encode',description)"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
 
             <xsl:text>s:8:"filepath";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:6:"string";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(filepath)"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="filepath"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
 
             <xsl:text>s:4:"mime";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:6:"string";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(filemime)"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="filemime"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
 
             <xsl:text>s:8:"filesize";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:6:"string";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(filesize)"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="filesize"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
 
           <xsl:text>}</xsl:text>
@@ -1475,32 +1399,26 @@
 
             <xsl:text>s:9:"linktitle";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:6:"base64";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(php:functionString('base64_encode',link_title))"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="php:functionString('base64_encode',link_title)"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
 
             <xsl:text>s:7:"linkurl";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:6:"base64";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(php:functionString('base64_encode',url))"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="php:functionString('base64_encode',url)"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
 
           <xsl:text>}</xsl:text>
@@ -1509,17 +1427,14 @@
 
       <xsl:text>s:11:"boilerplate";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:6:"base64";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(php:functionString('base64_encode',field_boilerplate/item/nid/node/body))"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="php:functionString('base64_encode',field_boilerplate/item/nid/node/body)"/>
         <xsl:text>";</xsl:text>
-
       <xsl:text>}</xsl:text>
 
     <xsl:text>}</xsl:text>
@@ -1530,7 +1445,7 @@
 
 
   <xsl:if test="type = 'external_news'">
-    <xsl:text>a:13:{</xsl:text>
+    <xsl:text>a:14:{</xsl:text>
 
       <xsl:text>s:3:"nid";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
@@ -1558,122 +1473,110 @@
 
       <xsl:text>s:5:"title";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:6:"base64";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(php:functionString('base64_encode',title))"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="php:functionString('base64_encode',title)"/>
         <xsl:text>";</xsl:text>
-
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:4:"body";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:6:"base64";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(php:functionString('base64_encode',body))"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="php:functionString('base64_encode',body)"/>
         <xsl:text>";</xsl:text>
-
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:6:"teaser";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:6:"base64";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(php:functionString('base64_encode',teaser))"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="php:functionString('base64_encode',teaser)"/>
         <xsl:text>";</xsl:text>
-
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:11:"publication";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:6:"base64";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(php:functionString('base64_encode',field_publication/item/value))"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="php:functionString('base64_encode',field_publication/item/value)"/>
         <xsl:text>";</xsl:text>
-
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:11:"article_url";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:6:"base64";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(php:functionString('base64_encode',field_article_url/item/url))"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="php:functionString('base64_encode',field_article_url/item/url)"/>
         <xsl:text>";</xsl:text>
+      <xsl:text>}</xsl:text>
 
+      <xsl:text>s:8:"userdata";</xsl:text>
+      <xsl:text>a:2:{</xsl:text>
+        <xsl:text>s:6:"format";</xsl:text>
+        <xsl:text>s:6:"string";</xsl:text>
+        <xsl:text>s:5:"value";</xsl:text>
+        <xsl:text>s:</xsl:text>
+        <xsl:value-of select="string-length(field_userdata/item/value)"/>
+        <xsl:text>:"</xsl:text>
+        <xsl:value-of select="field_userdata/item/value"/>
+        <xsl:text>";</xsl:text>
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:8:"dateline";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:6:"base64";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(php:functionString('base64_encode',field_dateline/item/value))"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="php:functionString('base64_encode',field_dateline/item/value)"/>
         <xsl:text>";</xsl:text>
-
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:7:"created";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:6:"string";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(created)"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="created"/>
         <xsl:text>";</xsl:text>
-
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:7:"changed";</xsl:text>
       <xsl:text>a:2:{</xsl:text>
-
         <xsl:text>s:6:"format";</xsl:text>
         <xsl:text>s:6:"string";</xsl:text>
-
         <xsl:text>s:5:"value";</xsl:text>
         <xsl:text>s:</xsl:text>
         <xsl:value-of select="string-length(changed)"/>
         <xsl:text>:"</xsl:text>
         <xsl:value-of select="changed"/>
         <xsl:text>";</xsl:text>
-
       <xsl:text>}</xsl:text>
 
       <xsl:text>s:4:"gids";</xsl:text>
@@ -1685,22 +1588,17 @@
           <xsl:value-of select="(position() - 1)"/>
           <xsl:text>;</xsl:text>
           <xsl:text>a:1:{</xsl:text>
-
             <xsl:text>s:3:"gid";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:7:"numeric";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(self::node())"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="self::node()"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
-
           <xsl:text>}</xsl:text>
         </xsl:for-each>
       <xsl:text>}</xsl:text>
@@ -1714,22 +1612,17 @@
           <xsl:value-of select="(position() - 1)"/>
           <xsl:text>;</xsl:text>
           <xsl:text>a:1:{</xsl:text>
-
             <xsl:text>s:4:"name";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:6:"base64";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(php:functionString('base64_encode',self::node()))"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="php:functionString('base64_encode',self::node())"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
-
           <xsl:text>}</xsl:text>
         </xsl:for-each>
       <xsl:text>}</xsl:text>
@@ -1743,35 +1636,28 @@
           <xsl:value-of select="(position() - 1)"/>
           <xsl:text>;</xsl:text>
           <xsl:text>a:2:{</xsl:text>
-
             <xsl:text>s:3:"vid";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:7:"numeric";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(vid)"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="vid"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
 
             <xsl:text>s:4:"term";</xsl:text>
             <xsl:text>a:2:{</xsl:text>
-
               <xsl:text>s:6:"format";</xsl:text>
               <xsl:text>s:6:"base64";</xsl:text>
-
               <xsl:text>s:5:"value";</xsl:text>
               <xsl:text>s:</xsl:text>
               <xsl:value-of select="string-length(php:functionString('base64_encode',name))"/>
               <xsl:text>:"</xsl:text>
               <xsl:value-of select="php:functionString('base64_encode',name)"/>
               <xsl:text>";</xsl:text>
-
             <xsl:text>}</xsl:text>
 
           <xsl:text>}</xsl:text>

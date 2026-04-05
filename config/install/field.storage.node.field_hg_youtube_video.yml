@@ -6,15 +6,13 @@ dependencies:
       - hg_reader
   module:
     - node
-id: node.field_hg_groups
-field_name: field_hg_groups
+    - video_embed_field
+id: node.field_hg_youtube_video
+field_name: field_hg_youtube_video
 entity_type: node
-type: string
-settings:
-  max_length: 255
-  case_sensitive: false
-  is_ascii: false
-module: core
+type: video_embed_field
+settings: {  }
+module: video_embed_field
 locked: false
 cardinality: -1
 translatable: true

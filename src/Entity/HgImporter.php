@@ -554,6 +554,7 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
         $elements['field_hg_dateline']         = isset($rawnode['dateline']) ? substr($rawnode['dateline'], 0, 10) : '';
         $elements['field_hg_publication']      = $rawnode['publication'];
         $elements['field_hg_related_files']    = isset($rawnode['files']) ? $rawnode['files'] : '';
+        $elements['field_hg_userdata']         = isset($rawnode['userdata']) ? $rawnode['userdata'] : '';
         break;
 
       case 'news':
@@ -565,6 +566,7 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
         $elements['field_hg_summary_sentence']    = isset($rawnode['sentence']) ? $rawnode['sentence'] : '';
         $elements['field_hg_keywords']            = $this->process_terms($rawnode['keywords'], 'hg_keywords') ?: array();
         $elements['field_hg_categories']          = $this->process_terms($rawnode['categories'], 'hg_categories') ?: array();
+        $elements['field_hg_userdata']            = isset($rawnode['userdata']) ? $rawnode['userdata'] : '';
         if (isset($rawnode['news_room_topics'])) {
           $elements['field_hg_news_room_topics']  = $this->process_terms($rawnode['news_room_topics'], 'hg_news_room_topics') ?: array();
         }
@@ -612,6 +614,7 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
         $elements['field_hg_invited_audience'] = $this->process_terms($rawnode['hg_invited_audience'], 'hg_invited_audience') ?: array();
         $elements['field_hg_event_time']       = $this->process_eventdate($rawnode['start'], $rawnode['end'], null);
         $elements['field_hg_media']            = $this->process_media($rawnode['hg_media']) ?: array();
+        $elements['field_hg_userdata']         = isset($rawnode['userdata']) ? $rawnode['userdata'] : '';
 
         // Extras
         foreach ($rawnode['event_extras'] as $extra) {
@@ -799,6 +802,7 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
         ]);
         $node->set('field_hg_publication', $remote_node['publication']);
         $node->set('field_hg_related_files', isset($remote_node['files']) ? $remote_node['files'] : '');
+        $node->set('field_hg_userdata', isset($remote_node['userdata']) ? $remote_node['userdata'] : '');
         break;
 
       case 'event':
@@ -814,6 +818,8 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
         $node->set('field_hg_keywords', $this->process_terms($remote_node['keywords'], 'hg_keywords') ?: array());
         $node->set('field_hg_event_categories', $this->process_terms($remote_node['event_categories'], 'hg_event_categories') ?: array());
         $node->set('field_hg_invited_audience', $this->process_terms($remote_node['hg_invited_audience'], 'hg_invited_audience') ?: array());
+        $node->set('field_hg_userdata', isset($remote_node['userdata']) ? $remote_node['userdata'] : '');
+
 
         // Media processing is offloaded to a helper function.
         $media = $this->process_media($remote_node['hg_media']);
@@ -889,6 +895,7 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
         $node->set('field_hg_categories', $this->process_terms($remote_node['categories'], 'hg_categories') ?: array());
         $node->set('field_hg_core_research_areas', $this->process_terms($remote_node['core_research_areas'], 'hg_core_research_areas') ?: array());
         $node->set('field_hg_news_room_topics', $this->process_terms($remote_node['news_room_topics'], 'hg_news_room_topics') ?: array());
+        $node->set('field_hg_userdata', isset($remote_node['userdata']) ? $remote_node['userdata'] : '');
 
         // Media processing is offloaded to a helper function.
         $media = $this->process_media($remote_node['hg_media']);
@@ -1055,7 +1062,7 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
               'bundle' => 'hg_image',
               'field_media_hg_image' => [
                 'target_id' => $file->id(),
-                'alt' => $item['title'],
+                'alt' => $item['alt'],
                 'title' => $item['title'],
               ],
               'field_hg_media_description' => $item['body'],
@@ -1077,7 +1084,20 @@ class HgImporter extends ContentEntityBase implements HgImporterInterface {
             ]);
           } else {
             // Ternary Operator that handles both youtube url instances
-            $url_array = strpos($item['video_url'],'youtu.be') ? explode('youtu.be', $item['video_url']) : explode('youtube.com/watch?v=', $item['video_url']);
+              if (strpos($item['video_url'], 'watch?v=youtu.be/') !== false) {
+               // if video media field contains this scenario watch?v=youtu.be/video_id
+               $video_id = substr($item['video_url'], strpos($item['video_url'], 'watch?v=youtu.be/') + strlen('watch?v=youtu.be/'));
+              }
+              else if(strpos($item['video_url'], 'watch?v=https://www.youtube.com/watch?v=') !== false) {
+               // if video media field contains this scenario v=https://www.youtube.com/watch?v=video_id
+               $get_vid = substr($item['video_url'], strpos($item['video_url'], 'watch?v=https://www.youtube.com/watch?v=') + strlen('watch?v=https://www.youtube.com/watch?v='));
+               $video_id = strtok($get_vid, '&');
+              }
+              else{
+               // Most common video scenarios will be caught here
+                $url_array = strpos($item['video_url'],'youtu.be') ? explode('youtu.be', $item['video_url']) : explode('youtube.com/watch?v=', $item['video_url']);
+                $video_id = trim(end($url_array), "/");
+              }
             $new_url = 'https://youtu.be/' . trim(end($url_array), "/");
             // Create a new video media entity
             $media_entity = Media::create([

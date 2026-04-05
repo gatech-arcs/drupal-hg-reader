@@ -1,3 +1,4 @@
+uuid: a3900c80-6449-45e6-8c36-17e1de17911f
 langcode: en
 status: true
 dependencies:
@@ -6,7 +7,7 @@ dependencies:
 id: hg_news_path
 label: hg_news_path
 type: 'canonical_entities:node'
-pattern: '/news/[node:title]'
+pattern: '/hg/news/[node:field_hg_dateline:date:html_year]/[node:field_hg_dateline:date:custom:m]/[node:field_hg_dateline:date:custom:d]/[node:title]'
 selection_criteria:
   358b4dcc-fe77-471c-bb86-c5e78de11c1a:
     id: 'entity_bundle:node'

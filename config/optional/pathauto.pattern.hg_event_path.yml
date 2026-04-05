@@ -1,3 +1,4 @@
+uuid: e56b4312-b951-4591-8577-d011ec2063bc
 langcode: en
 status: true
 dependencies:
@@ -6,7 +7,7 @@ dependencies:
 id: hg_event_path
 label: hg_event_path
 type: 'canonical_entities:node'
-pattern: '/events/[node:title]'
+pattern: '/hg/event/[node:field_hg_event_time:start_date:html_year]/[node:field_hg_event_time:start_date:custom:m]/[node:field_hg_event_time:start_date:custom:d]/[node:title]'
 selection_criteria:
   7a8333a5-1536-45e4-b9b6-5066a0d6ee2a:
     id: 'entity_bundle:node'

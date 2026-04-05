@@ -105,6 +105,7 @@
     {% endif %}
 
     {# Main Content  #}
+    
     <div class="col">
         <div class="row">
             <div class="hg-title w-100 ml-3 mb-3">
@@ -120,11 +121,14 @@
                     {% endif %}
                 </div>
             {% else %}
-                <div class="col hg-teaser-image">
-                    <a href="{{ path('entity.node.canonical', {'node': node.id}) }}">
-                        {{ content.field_hg_images[0] }}
-                    </a>
-                </div>
+                {% if content.field_hg_images[0] is not empty %}
+                    <div class="col hg-teaser-image">
+                        <a href="{{ path('entity.node.canonical', {'node': node.id}) }}">
+                            {{ content.field_hg_images[0] }}
+                        </a>
+                    </div>
+                   {% else %}
+                {% endif %}
                 <div class="col description">
                     {% if content.field_hg_summary[0] is not empty and content.field_hg_summary[0] is same as(content.field_hg_summary[0]) %}
                         {{ content.field_hg_summary_sentence[0] }}

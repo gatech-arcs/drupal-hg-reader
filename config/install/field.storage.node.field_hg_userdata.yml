@@ -6,8 +6,8 @@ dependencies:
       - hg_reader
   module:
     - node
-id: node.field_hg_groups
-field_name: field_hg_groups
+id: node.field_hg_userdata
+field_name: field_hg_userdata
 entity_type: node
 type: string
 settings:
@@ -16,7 +16,7 @@ settings:
   is_ascii: false
 module: core
 locked: false
-cardinality: -1
+cardinality: 1
 translatable: true
 indexes: {  }
 persist_with_no_fields: false
