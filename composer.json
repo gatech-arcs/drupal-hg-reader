@@ -1,18 +1,14 @@
 {
     "name": "gtsciences/hg_reader",
+    "type": "drupal-custom-module",
+    "description": "Provides the hg_reader module of course.",
     "replace": {
         "gt/hg_reader": "self.version"
     },
-    "description": "Provides the hg_reader module of course.",
-    "type": "drupal-module",
     "require": {
         "drupal/twig_field_value": "^2.0",
         "drupal/twig_tweak": "^3.1",
         "drupal/metatag": "2.2",
         "drupal/pathauto": "1.14"
-    },
-    "suggest": {
-        "drupal/pathauto": "Automate path creation for entities.",
-        "drupal/metatag": "Provides metatag data for social media and other porpoises."
     }
 }
